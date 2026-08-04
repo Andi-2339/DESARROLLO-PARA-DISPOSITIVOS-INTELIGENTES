@@ -1,0 +1,122 @@
+import 'package:flutter/material.dart';
+import 'search_screen.dart';
+import 'ble_scanner_screen.dart'; // <-- ¡Agregamos la importación de tu nueva pantalla!
+import '../widgets/weather_icon.dart';
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // Usamos MediaQuery para detectar el ancho y decidir la orientación
+    final isLandscape = MediaQuery.of(context).size.width > 600;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Clima Actual'),
+        centerTitle: true,
+        elevation: 0, // Le da un toque más limpio y moderno
+        actions: [
+          // <-- El botón debe ir dentro del arreglo 'actions'
+          IconButton(
+            icon: const Icon(Icons.bluetooth),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const BLEScannerScreen(),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+      body: SafeArea(
+        // SingleChildScrollView evita que la pantalla se corte si los elementos no caben
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24.0),
+          child: Center(
+            child: isLandscape
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(child: _buildMainInfo()),
+                      Expanded(child: _buildExtraInfo(context)),
+                    ],
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildMainInfo(),
+                      const SizedBox(height: 40),
+                      _buildExtraInfo(context),
+                    ],
+                  ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Separamos la temperatura y la ciudad en su propio widget
+  Widget _buildMainInfo() {
+    return Column(
+      children: const [
+        Text(
+          '24°C',
+          style: TextStyle(
+            fontSize: 80,
+            fontWeight: FontWeight.bold,
+            color: Colors.blue,
+          ),
+        ),
+        SizedBox(height: 8),
+        Text(
+          'Santiago de Querétaro',
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    );
+  }
+
+  // Agregamos iconos a los detalles de viento/humedad y estilizamos el botón
+  Widget _buildExtraInfo(BuildContext context) {
+    return Column(
+      children: [
+        const WeatherIcon(condition: 'cloud'),
+        const SizedBox(height: 24),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Icon(Icons.water_drop, color: Colors.blueGrey),
+            SizedBox(width: 8),
+            Text('65%', style: TextStyle(fontSize: 18)),
+            SizedBox(width: 24),
+            Icon(Icons.air, color: Colors.blueGrey),
+            SizedBox(width: 8),
+            Text('12 km/h', style: TextStyle(fontSize: 18)),
+          ],
+        ),
+        const SizedBox(height: 40),
+        ElevatedButton.icon(
+          icon: const Icon(Icons.search),
+          label: const Text('Buscar Ciudades', style: TextStyle(fontSize: 16)),
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SearchScreen()),
+            );
+          },
+        ),
+      ],
+    );
+  }
+}
