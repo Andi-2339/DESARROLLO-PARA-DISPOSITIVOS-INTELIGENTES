@@ -1,0 +1,73 @@
+<div class="tv-container">
+  <div class="tv-background" [style.backgroundImage]="'url(' + currentTvBackground() + ')'">
+    <div class="tv-overlay"></div>
+  </div>
+
+  <div class="tv-safe-zone">
+    <header class="tv-header">
+      <div class="tv-brand">
+        <img src="assets/logo.png" alt="Anime News Logo" class="tv-logo">
+        <span class="tv-title">Anime News Hub</span>
+      </div>
+      <div class="tv-stats" *ngIf="heartRate() > 0">
+        <div class="stat-badge" [class.critical]="criticalAlert()">
+           <span class="stat-icon">❤️</span> {{ heartRate() }} BPM
+        </div>
+        <div class="stat-badge" [class.critical]="criticalAlert()">
+           <span class="stat-icon">⚡</span> {{ hypeLevel() }}% Hype
+        </div>
+        <div class="stat-badge">
+           <span class="stat-icon">📺</span> {{ episodes() }} Eps
+        </div>
+      </div>
+      <div class="tv-time">
+        {{ currentTime() | date:'shortTime' }}
+      </div>
+    </header>
+
+    <main class="tv-main">
+      <div class="tv-grid">
+        <!-- Card 1 -->
+        <div class="tv-card" [class.focused]="highlightedCard() === 0">
+           <img src="assets/DemonSlayer.jpg" class="tv-card-img">
+           <div class="tv-card-content">
+              <h2>Demon Slayer</h2>
+              <p>Rompe récord de taquilla en Japón. La nueva película arrasa.</p>
+           </div>
+        </div>
+        
+        <!-- Card 2 -->
+        <div class="tv-card" [class.focused]="highlightedCard() === 1">
+           <img src="assets/JujutsuKaisen.jpg" class="tv-card-img">
+           <div class="tv-card-content">
+              <h2>Jujutsu Kaisen</h2>
+              <p>MAPPA confirma tercera temporada en producción.</p>
+           </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="tv-card" [class.focused]="highlightedCard() === 2">
+           <img src="assets/Naruto.jpg" class="tv-card-img">
+           <div class="tv-card-content">
+              <h2>Naruto</h2>
+              <p>El especial de aniversario atrae a millones de fans.</p>
+           </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="tv-card" [class.focused]="highlightedCard() === 3">
+           <div class="tv-card-fallback-img"></div>
+           <div class="tv-card-content">
+              <h2>One Piece</h2>
+              <p>Gear 5 en todo su esplendor en el último episodio.</p>
+           </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Critical Alert Overlay -->
+    <div class="tv-critical-alert" *ngIf="criticalAlert()">
+      ⚠️ ¡ALERTA CRÍTICA! Hype Extremo Detectado ⚠️
+    </div>
+  </div>
+</div>

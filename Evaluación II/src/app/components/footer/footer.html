@@ -1,0 +1,67 @@
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-col brand-col">
+      <img src="assets/logo.png" alt="Anime News Logo" class="footer-logo">
+      <p class="stats-text">
+        Visitas mensuales: +1.2M otakus activos.<br>
+        Artículos publicados: 15,200
+      </p>
+    </div>
+    
+    <div class="footer-col text-col">
+      <h3>Acceso Rápido</h3>
+      <ul class="simple-menu">
+        <li><a routerLink="/">Página Principal (Inicio)</a></li>
+        <li><a routerLink="/noticias">Noticias</a></li>
+        <li><a routerLink="/catalogo">Catálogo</a></li>
+      </ul>
+      <h3 style="margin-top: 20px;">Datos de Contacto</h3>
+      <p>Email: soporte@animenews.com</p>
+      <p>Tel: +52 555 123 4567</p>
+    </div>
+    
+    <div class="footer-col col-form">
+      <h3>Envíanos un Mensaje</h3>
+      <form class="contact-form">
+        <input type="text" placeholder="Tu Nombre">
+        <input type="email" placeholder="Tu Correo">
+        <textarea placeholder="¿En qué te ayudamos?" rows="3"></textarea>
+        <button type="submit" class="cta-button">Enviar Formulario</button>
+      </form>
+    </div>
+
+    <div class="footer-col text-col map-col">
+       <h3>Nuestras Oficinas</h3>
+       <div class="map" style="height: 180px;">
+         <iframe
+           src="https://www.google.com/maps?q=Av.%20Pie%20de%20la%20Cuesta%202501,%20Nacional,%2076148%20Santiago%20de%20Quer%C3%A9taro,%20Qro.&output=embed"
+           width="100%" height="100%" style="border:0;" loading="lazy">
+         </iframe>
+       </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="privacy-policies">
+      <a href="#" (click)="togglePrivacy($event)">Políticas de Privacidad</a>
+    </div>
+    <div class="social-media">
+      <a href="#" class="social-btn facebook" (click)="openSocial('facebook', $event)">FB</a>
+      <a href="#" class="social-btn twitter" (click)="openSocial('twitter', $event)">X</a>
+      <a href="#" class="social-btn instagram" (click)="openSocial('instagram', $event)">IG</a>
+      <a href="#" class="social-btn youtube" (click)="openSocial('youtube', $event)">YT</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Privacy Policy Modal -->
+<div class="modal-overlay" *ngIf="showPrivacyModal" (click)="togglePrivacy($event)">
+  <div class="modal-content-wrapper neon-animated-box">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h2>Políticas de Privacidad</h2>
+      <p>En Anime News respetamos tu privacidad. Tus datos personales son tratados con el mayor cuidado y solo se utilizan para mejorar tu experiencia en nuestra web de noticias.</p>
+      <p>Al continuar navegando, aceptas el uso de cookies y nuestras políticas descritas aquí.</p>
+      <button class="cta-button" (click)="togglePrivacy($event)">Aceptar y Cerrar</button>
+    </div>
+  </div>
+</div>
