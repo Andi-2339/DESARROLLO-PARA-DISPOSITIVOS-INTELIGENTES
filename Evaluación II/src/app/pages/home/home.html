@@ -1,6 +1,6 @@
 <div class="slider">
   <!-- Recurso multimedia: Usa el seleccionado por D-pad, o el de temporada por defecto -->
-  <img [src]="currentTvBackground || themeService.currentTheme().bannerImage" class="img-banner">
+  <img [src]="currentTvBackground || themeService.currentTheme().bannerImage" class="img-banner" onerror="this.onerror=null;this.src='assets/logo.png';">
 
   <div class="slider-text">
     <h1 class="neon-text pulsing-text">
@@ -19,7 +19,7 @@
                  [class.focused]="highlightedCard() === 0"
                  (mouseenter)="onCardHover(0)"
                  (mouseleave)="onCardLeave()">
-                <img src="assets/DemonSlayer.jpg">
+                <img src="assets/DemonSlayer.jpg" onerror="this.onerror=null;this.src='assets/logo.png';">
                 <div class="card-text">
                     <h3 class="secondary-label">Demon Slayer rompe récord</h3>
                     <p class="detail-text">La nueva película se convierte en la más vista del año.</p>
@@ -36,7 +36,7 @@
                  [class.focused]="highlightedCard() === 1"
                  (mouseenter)="onCardHover(1)"
                  (mouseleave)="onCardLeave()">
-                <img src="assets/JujutsuKaisen.jpg">
+                <img src="assets/JujutsuKaisen.jpg" onerror="this.onerror=null;this.src='assets/logo.png';">
                 <div class="card-text">
                     <h3 class="secondary-label">Jujutsu Kaisen nueva temporada</h3>
                     <p class="detail-text">MAPPA anuncia nuevos episodios.</p>
@@ -53,7 +53,7 @@
                  [class.focused]="highlightedCard() === 2"
                  (mouseenter)="onCardHover(2)"
                  (mouseleave)="onCardLeave()">
-                <img src="assets/Naruto.jpg">
+                <img src="assets/Naruto.jpg" onerror="this.onerror=null;this.src='assets/logo.png';">
                 <div class="card-text">
                     <h3 class="secondary-label">Naruto aniversario</h3>
                     <p class="detail-text">Un especial con nuevos episodios.</p>
@@ -70,7 +70,7 @@
                  [class.focused]="highlightedCard() === 3"
                  (mouseenter)="onCardHover(3)"
                  (mouseleave)="onCardLeave()">
-                <img src="assets/DemonSlayer.jpg"> <!-- Fallback visual si falta OnePiece.jpg -->
+                <img src="assets/DemonSlayer.jpg" onerror="this.onerror=null;this.src='assets/logo.png';"> <!-- Fallback visual si falta OnePiece.jpg -->
                 <div class="card-text">
                     <h3 class="secondary-label">One Piece Hype</h3>
                     <p class="detail-text">Nuevo episodio épico con mucha acción.</p>

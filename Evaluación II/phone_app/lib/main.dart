@@ -17,10 +17,15 @@ const Color kAccent     = Color(0xFF111111);
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  await Supabase.initialize(
-    url: 'https://mtwhobrdwjlffflxnrud.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im10d2hvYnJkd2psZmZmbHhucnVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2NjYzMzIsImV4cCI6MjA5MTI0MjMzMn0.IZy-nH12l9pbiDcu94jdPhwhTNks8-9ts01wd2-A5g4',
-  );
+  // Inicializar Supabase con timeout para que no congele la app
+  try {
+    await Supabase.initialize(
+      url: 'https://mtwhobrdwjlffflxnrud.supabase.co',
+      anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im10d2hvYnJkd2psZmZmbHhucnVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2NjYzMzIsImV4cCI6MjA5MTI0MjMzMn0.IZy-nH12l9pbiDcu94jdPhwhTNks8-9ts01wd2-A5g4',
+    ).timeout(const Duration(seconds: 8));
+  } catch (e) {
+    debugPrint("Supabase init error (app continuará sin sync): $e");
+  }
 
   runApp(
     MultiProvider(
@@ -52,17 +57,19 @@ class AppState extends ChangeNotifier {
   }
   
   Future<void> _initBle() async {
-    // Intentar conectar con flutter_blue_plus
+    // Intentar conectar con flutter_blue_plus (con timeout para emuladores)
     bool isBleAvailable = false;
     try {
       if (await FlutterBluePlus.isSupported == true) {
-         final state = await FlutterBluePlus.adapterState.first;
+         // Timeout de 3 segundos para evitar que se congele en emuladores
+         final state = await FlutterBluePlus.adapterState.first
+             .timeout(const Duration(seconds: 3));
          if (state == BluetoothAdapterState.on) {
             isBleAvailable = true;
          }
       }
     } catch(e) {
-      debugPrint("BLE check error: \$e");
+      debugPrint("BLE check error (usando fallback Supabase): $e");
     }
 
     if (isBleAvailable) {
@@ -187,7 +194,7 @@ class AppState extends ChangeNotifier {
         notifyListeners();
       }
     } catch (e) {
-      debugPrint("Initial fetch error: \$e");
+      debugPrint("Initial fetch error: $e");
     }
   }
   
@@ -202,7 +209,7 @@ class AppState extends ChangeNotifier {
            'updated_at': DateTime.now().toUtc().toIso8601String()
         });
      } catch (e) {
-        debugPrint("Error publishing to Supabase: \$e");
+         debugPrint("Error publishing to Supabase: $e");
      }
   }
 
@@ -217,7 +224,7 @@ class AppState extends ChangeNotifier {
         notifyListeners();
       }
     } catch (e) {
-      debugPrint("Error fetching anime news: \$e");
+       debugPrint("Error fetching anime news: $e");
       animeNews = [
         {"title": "One Piece – Episodio 1000+", "score": 9.0},
         {"title": "Jujutsu Kaisen – Temporada 3", "score": 8.8},

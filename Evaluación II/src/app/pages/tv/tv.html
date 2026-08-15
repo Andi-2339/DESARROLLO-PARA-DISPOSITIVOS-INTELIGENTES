@@ -6,7 +6,7 @@
   <div class="tv-safe-zone">
     <header class="tv-header">
       <div class="tv-brand">
-        <img src="assets/logo.png" alt="Anime News Logo" class="tv-logo">
+        <img src="assets/logo.png" alt="Anime News Logo" class="tv-logo" onerror="this.onerror=null;this.src='assets/fallback-image.png';">
         <span class="tv-title">Anime News Hub</span>
       </div>
       <div class="tv-stats" *ngIf="heartRate() > 0">
@@ -29,7 +29,7 @@
       <div class="tv-grid">
         <!-- Card 1 -->
         <div class="tv-card" [class.focused]="highlightedCard() === 0">
-           <img src="assets/DemonSlayer.jpg" class="tv-card-img">
+           <img src="assets/DemonSlayer.jpg" class="tv-card-img" onerror="this.onerror=null;this.src='assets/logo.png';">
            <div class="tv-card-content">
               <h2>Demon Slayer</h2>
               <p>Rompe récord de taquilla en Japón. La nueva película arrasa.</p>
@@ -38,7 +38,7 @@
         
         <!-- Card 2 -->
         <div class="tv-card" [class.focused]="highlightedCard() === 1">
-           <img src="assets/JujutsuKaisen.jpg" class="tv-card-img">
+           <img src="assets/JujutsuKaisen.jpg" class="tv-card-img" onerror="this.onerror=null;this.src='assets/logo.png';">
            <div class="tv-card-content">
               <h2>Jujutsu Kaisen</h2>
               <p>MAPPA confirma tercera temporada en producción.</p>
@@ -47,7 +47,7 @@
 
         <!-- Card 3 -->
         <div class="tv-card" [class.focused]="highlightedCard() === 2">
-           <img src="assets/Naruto.jpg" class="tv-card-img">
+           <img src="assets/Naruto.jpg" class="tv-card-img" onerror="this.onerror=null;this.src='assets/logo.png';">
            <div class="tv-card-content">
               <h2>Naruto</h2>
               <p>El especial de aniversario atrae a millones de fans.</p>

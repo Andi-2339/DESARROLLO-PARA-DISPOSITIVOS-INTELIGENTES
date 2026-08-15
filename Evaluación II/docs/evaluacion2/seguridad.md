@@ -31,8 +31,11 @@ channel.onmessage = (event) => {
 - **Derechos ARCO (Acceso, Rectificación, Cancelación, Oposición):** El usuario puede ejercer sus derechos enviando un correo a `privacidad@animenews.com` solicitando la eliminación completa de su perfil y estadísticas de sensores.
 
 ## 4. Plan de Retención de Datos
-- **Almacenamiento:** Los datos biométricos (BPM) se procesan localmente en el dispositivo (Edge Computing) y **no se envían a la nube** de forma persistente.
-- **Duración:** Las métricas de sesión se conservan en la memoria RAM del teléfono durante la conexión BLE activa. Al desconectar o cerrar la aplicación, los datos crudos se **eliminan inmediatamente**. Solo se conserva un resumen (promedios) en la base de datos local (SQLite/Hive) por 30 días para mostrar el historial. Pasados los 30 días, se aplica purga automática.
+- **Almacenamiento:** Los datos biométricos (BPM) se procesan localmente en el dispositivo (Edge Computing) y **no se envían a la nube** de forma persistente a largo plazo.
+- **Duración y Eliminación:** 
+  - Los datos crudos (BPM en tiempo real y Hype) se consideran de nivel efímero para la sesión. Se conservan únicamente en la memoria RAM del teléfono durante la conexión activa. Al cerrar la aplicación, esta información detallada se destruye inmediatamente.
+  - Para propósitos estadísticos y de historial, se conserva únicamente un resumen en la base de datos local del usuario por un periodo exacto de **30 días**, registrando cada sesión con su respectivo **timestamp** (fecha y hora exacta). 
+  - **Función Automática:** Existe un proceso automático en el inicio de la app que verifica el timestamp de los registros. Cualquier registro cuyo timestamp supere los 30 días de antigüedad es **eliminado automáticamente (purga programada)** de la base de datos, garantizando así el cumplimiento de protección de datos (nivel de Auditoría - AU).
 
 ## 5. Checklist de Seguridad PWA
 - [x] **CSP (Content Security Policy):** Implementada en `index.html` para restringir `default-src`, `connect-src` (solo API de Jikan), `media-src` y `img-src`.

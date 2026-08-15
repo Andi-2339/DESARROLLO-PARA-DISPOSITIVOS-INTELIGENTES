@@ -153,7 +153,7 @@
 /* Tipografía de las tarjetas */
 .tv-card-content h2 {
   font-family: 'Orbitron', sans-serif;
-  font-size: 4rem; /* 64px - Tipografía grande */
+  font-size: 5rem; /* 80px - Tipografía principal >= 5rem */
   color: #ff2ed1;
   text-shadow: 0 0 10px rgba(255, 46, 209, 0.5);
   margin-bottom: 20px;

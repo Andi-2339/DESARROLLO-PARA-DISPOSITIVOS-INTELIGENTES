@@ -21,6 +21,21 @@ export class TvSyncService {
 
   constructor() {
     this.initRealtimeSubscription();
+    this.initLocalBroadcastChannel();
+  }
+
+  private initLocalBroadcastChannel() {
+    // Canal de comunicación local (BroadcastChannel)
+    const channel = new BroadcastChannel('anime_sync_channel');
+    channel.onmessage = (event) => {
+      // Validación de seguridad CRÍTICA
+      if (event.origin !== 'https://tudominio.com' && event.origin !== 'http://localhost:4200') {
+        console.warn('Origen no confiable rechazado:', event.origin);
+        return;
+      }
+      // Procesar mensaje local si el origen es seguro
+      console.log('Mensaje seguro recibido:', event.data);
+    };
   }
 
   private initRealtimeSubscription() {
